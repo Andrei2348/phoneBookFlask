@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block subcontent %}
+<div class="content__inner">
+  <h1 class="form__title">Личные данные пользователя</h1>
+  <div class="form__inner">
+    <form class="form__inner-inputs" method="POST" action="/delete/{{session.username}}/">
+
+      <div class="form__wrapper">
+        <label class="form__wrapper-title" for="inputLogin">Для подтверждения удаления аккаунта введите ваш логин </label>
+        <input class="form__wrapper-input" type="text" placeholder="Введите ваш логин" id="inputLogin" name="inputLogin">
+      </div>
+
+      <div class="form__register-wrapper"></div>
+        <button class="form__wrapper-button" type="submit">Удалить аккаунт</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+{% endblock %}

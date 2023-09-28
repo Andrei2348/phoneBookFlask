@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block subcontent %}
+
+<div class="user__page-wrapper">
+  <div id="session__name">{{ session.username }}</div>
+
+  <div class="user__menu-pages">
+
+    <!-- Режим поиска друзей -->
+    <div class="user__menu-page">
+      <h1 class="content__title">Поиск друзей</h1>
+      <form id="find__friend" class="user__inner-inputs form__inner-inputs"  method="POST">
+        
+        <label class="form__wrapper-title" for="find__input-user">Введите username пользователя</label>
+        <div class="user__form-inner">
+          <input class="user__form-input form__wrapper-input" id="find__input-user" type="text" placeholder="Введите username">
+          <input class="form__wrapper-button" type="submit" value="Начать поиск">
+        </div>
+
+        <div class="find__message-wrapper">
+          <div class="find__message">
+            <h3 class="find__message-text">Пользователь с таким username не найден!</h3>
+          </div>
+          <div class="find__message">
+            <a class="find__message-text" id="find__message-text", href="#"></a>
+            <button class="form__wrapper-button" id="find__add-user">Добавить в друзья</button>
+          </div>
+          <div class="find__message">
+            <h3 class="find__message-text">Пользователь успешно добавлен в друзья!</h3>
+          </div>
+          <div class="find__message">
+            <h3 class="find__message-text">Ошибка! Пользователь с таким username уже у вас в друзьях!</h3>
+          </div>
+        </div>
+      </form>
+
+
+
+    </div>
+  
+    <!-- Режим просмотра друзей -->
+    <div class="user__menu-page active">
+      <ul class="user__friends-list">
+      </ul>
+    </div>
+
+    <!-- Режим просмотра сообщений -->
+    <div class="user__menu-page">
+      <div class="user__form-wrapper">
+        <form id="chat__form" class="user__inner-inputs form__inner-inputs"  method="POST">
+          <textarea class="user__form-area form__wrapper-area" id="chat__area" cols="70" rows="20" readonly>{{ returned }}</textarea>
+    
+          <label class="form__wrapper-title" for="chat__input-message">Введите сообщение пользователю <p class="chat__username-name"></p></label>
+          <div class="user__form-inner">
+            <input class="user__form-input form__wrapper-input" id="chat__input-message" type="text" placeholder="Введите сообщение">
+            <input class="form__wrapper-button" type="submit" value="Отправить сообщение">
+          </div>
+        </form>
+        <div class="user__list">
+        </div>
+      </div>
+    </div>
+
+    <!-- Режим общий чат -->
+    <div class="user__menu-page">
+      <div class="user__form-wrapper">
+        <form id="chat__form" class="user__inner-inputs form__inner-inputs" method="POST">
+          <textarea class="user__form-area form__wrapper-area" id="chat__area" cols="70" rows="20" readonly>{{ returned }}</textarea>
+    
+          <label class="form__wrapper-title" for="chat__input-message">Введите сообщение</label>
+          <div class="user__form-inner">
+            <input class="user__form-input form__wrapper-input" id="chat__input-message" type="text" placeholder="Введите сообщение">
+            <input class="form__wrapper-button" type="submit" value="Отправить сообщение">
+          </div>
+        </form>
+      </div>
+    </div>
+  
+    <!-- Режим черный список -->
+    <div class="user__menu-page">
+      <h1 class="content__title">черный список</h1>
+      <div class="user__blacklist">
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- Меню выбора раздела -->
+  <div class="user__menu-wrapper">
+    <ul class="user__menu-items">
+      <li class="user__menu-item">Найти друзей</li>
+      <li class="user__menu-item">Друзья</li>
+       <li class="user__menu-item">Личные сообщения</li>
+      <li class="user__menu-item">Общий чат</li>
+       <li class="user__menu-item">Черный список</li>
+    </ul>
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{{ url_for('static', filename='./js/main.js') }}"></script>
+{% endblock %}

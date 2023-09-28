@@ -1,0 +1,25 @@
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar__wrapper">
+      <a class="navbar__logo" href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='./images/logo.svg') }}" alt=""></a>
+      <ul class="navbar__items">
+        
+          
+        {% if session.username %}
+        <li class="navbar__item"><a class="navbar__item-link" href="{{ url_for('user', username=session.username) }}">Моя страница</a></li>
+        <li class="navbar__item navbar__item-link">{{ session.username }}
+          <ul class="navbar__submenu-items">
+            <li class="navbar__submenu-item"><a class="navbar__submenu-link" href="{{ url_for('password', username=session.username) }}">Изменить пароль</a></li>
+            <li class="navbar__submenu-item"><a class="navbar__submenu-link" href="{{ url_for('private', username=session.username) }}">Мои данные</a></li>
+            <li class="navbar__submenu-item"><a class="navbar__submenu-link" href="{{ url_for('delete', username=session.username) }}">Удалить аккаунт</a></li>
+            <li class="navbar__submenu-item"><a class="navbar__submenu-link" href="{{ url_for('logout') }}">Выйти из аккаунта</a></li>
+          </ul>
+        </li>
+        {% else %}
+        <li class="navbar__item"><a class="navbar__item-link" href="{{ url_for('index') }}">На Главную</a></li>
+        <li class="navbar__item"><a class="navbar__item-link" href="{{ url_for('login') }}">Войти</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
