@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  
+</head>
+<body>
+  <section class="section">
+    <div class="container">
+
+      <div class="section__search">
+        <form action="/private/{{session.username}}/">
+          <div class="form__wrapper">
+            <label class="form__wrapper-title" for="firstName">Введите имя и фамилию</label>
+            <input class="form__wrapper-input" type="text" placeholder="Введите имя и фамилию" id="firstName" name="firstName" value = "{{ personal_data.firstName }}">
+          </div>
+          <button class="form__wrapper-button" type="submit">Найти контакт</button>
+        </form>
+      </div>
+
+      <div class="section__wrapper">
+        <div class="section__person-list">
+          <a href="#">Добавить новую запись</a>
+          <ul>
+            <li>пупкин вася</li>
+            <li>пупкин вася</li>
+            <li>пупкин вася</li>
+            <li>пупкин вася</li>
+            <li>пупкин вася</li>
+            <li>пупкин вася</li>
+            <li>пупкин вася</li>
+            <li>пупкин вася</li>
+            <li>пупкин вася</li>
+          </ul>
+        </div>
+
+        <div class="section__person-data">
+          <form class="form__inner-inputs" method="POST" action="/private/{{session.username}}/">
+  
+            <div class="form__wrapper">
+              <label class="form__wrapper-title" for="firstName">Введите имя</label>
+              <input class="form__wrapper-input" type="text" placeholder="Введите имя" id="firstName" name="firstName" value = "">
+            </div>
+      
+            <div class="form__wrapper">
+              <label class="form__wrapper-title" for="lastName">Введите фамилию</label>
+              <input class="form__wrapper-input" type="text" placeholder="Введите фамилию" id="lastName" name="lastName"  value = "">
+            </div>
+      
+            <div class="form__wrapper">
+              <label class="form__wrapper-title" for="city">Номер телефона</label>
+              <input class="form__wrapper-input" type="text" placeholder="Введите город проживания" id="city" name="city" value = "{{ personal_data.city }}">
+            </div>
+      
+            <button class="form__wrapper-button" type="submit">Сохранить изменения</button>
+    
+          </form>
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+</body>
+</html>
