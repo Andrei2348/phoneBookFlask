@@ -6,7 +6,7 @@ def create_table():
     cursor = db.cursor()
 
   query = """
-    CREATE TABLE IF NOT EXISTS guide(    
+    CREATE TABLE IF NOT EXISTS phone_directory(    
       id INTEGER PRIMARY KEY,
       phone_number VARCHAR(20) NOT NULL,
       firstname VARCHAR(50) NOT NULL,
