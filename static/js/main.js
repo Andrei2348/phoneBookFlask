@@ -1,9 +1,12 @@
-window.addEventListener('DOMContentLoaded', startNavigation)
+const phoneNumber = document.getElementById('section__person-form-phone');
+const firstName = document.getElementById('section__person-form-firstName');
+const lastName = document.getElementById('section__person-form-lastName');
+const saveButton = document.querySelector('.section__person-form-button');
 
+window.addEventListener('DOMContentLoaded', startNavigation)
 
 function startNavigation(){
   requestToServer()
-
 }
 
 
@@ -29,11 +32,11 @@ function requestToServer(){
         
         for (elem in response){
           document.querySelector('.section__person-items').insertAdjacentHTML("beforeend",
-          `<li class="section__person-item" data-attribute=${response[elem]['id']} >
+          `<li class="section__person-item">
             <a class="section__person-link" href="#">${response[elem]['firstname']} ${response[elem]['lastname']}</a>
           </li>`);
         };
-        selectPersonFromList();
+        selectPersonFromList(response);
       }
     },
     error: function(error) {
@@ -43,33 +46,30 @@ function requestToServer(){
 }
 
 
-function selectPersonFromList(){
+function selectPersonFromList(response){
   const clients = document.querySelectorAll('.section__person-item')
   clients.forEach((eachElement, index) => 
     eachElement.addEventListener('click', function(event){
       event.preventDefault();
-      let clientAttribute = clients[index].getAttribute('data-attribute');
-      console.log(clientAttribute)
-      
-      $.ajax({
-        url: '/index/',
-        type: 'POST',
-        cache: true,
-        data: { 'data': 'getInfo',
-              'client_id': clientAttribute},
-        success: function(response) {
-          console.log(response)
-        },
-        error: function(error) {
-          console.log(error);
-        }
-      });
-
+      // Добавить номер записи в таблицу личных данных!!!!
+      <span class="hidden__id">${response[elem]['id']}</span>
+      phoneNumber.value = response[index - 1]['phone_number'];
+      firstName.value = response[index - 1]['firstname'];
+      lastName.value = response[index - 1]['lastname'];
+      saveChanges(clientAttribute);
     })
   );
+  // deleteClient();
 };
 
-
+function saveChanges(clientAttribute){
+  saveButton.addEventListener('click', function(event){
+    event.preventDefault();
+    
+    console.log(clientAttribute[-1])
+  })
+  
+}
 
 // =======================================================================
 // const el = document.querySelector('.section__person-items')
