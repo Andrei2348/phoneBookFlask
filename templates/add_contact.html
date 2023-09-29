@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='./css/style.css') }}">
 </head>
 <body>
   
@@ -15,7 +15,7 @@
         <h3 class="section__person-title section__addperson-title">Введите данные для добавления нового контакта</h3>
         <div class="section__wrapper section__add-wrapper">
           <div class="section__person-data">
-            <form class="section__person-form" method="POST">
+            <form class="section__person-form" method="POST" action="/add_contact/">
   
               <div class="section__person-form-wrapper">
                 <label class="section__person-form-title" for="city">Введите номер телефона</label>
@@ -36,7 +36,7 @@
             </form>
           </div>
         </div>
-        <a class="section__button section__return-button" href="#">Вернуться на главную страницу</a>
+        <a class="section__button section__return-button" href="{{ url_for('index') }}">Вернуться на главную страницу</a>
       </div>
     </section>
 

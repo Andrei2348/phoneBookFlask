@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='./css/style.css') }}">
 </head>
 <body>
   
   <section class="section__search">
     <div class="container">
-      <form class="section__search-wrapper">
+      <form class="section__search-wrapper" action="/index/">
         <div class="section__search-form">
           <input class="section__search-input section__input" type="text" placeholder="Введите данные для поиска" id="section__search-input" name="section__search-input">
           <button class="section__search-button section__button" type="submit">Найти контакт</button>
@@ -24,7 +24,7 @@
   
         <div class="section__wrapper">
           <div class="section__person-list">
-            <a class="section__person-add-button section__button" href="#">Добавить новую запись</a>
+            <a class="section__person-add-button section__button" href="{{ url_for('add_contact') }}">Добавить новую запись</a>
             <h3 class="section__person-title">Список контактов</h3>
             <p class="section__person-text">Нажмите на контакт, чтобы просмотреть или редактировать данные</p>
             <ul class="section__person-items">
@@ -53,7 +53,7 @@
           </div>
   
           <div class="section__person-data">
-            <form class="section__person-form" method="POST">
+            <form class="section__person-form" method="POST" action="/index/">
   
               <div class="section__person-form-wrapper">
                 <label class="section__person-form-title" for="city">Номер телефона</label>
