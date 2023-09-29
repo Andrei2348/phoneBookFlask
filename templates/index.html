@@ -1,38 +1,89 @@
-{% extends 'base.html' %}
-{% block subcontent %}
-<div class="content__inner">
-  <h1 class="rules__title content__title">Внутренние правила нашей социальной сети:</h1>
-  <h3 class="rules__subtitle">В нашей социальной сети ЗАПРЕЩЕНО:</h3>
-  <ul class="rules__items">
-    <li class="rules__item">1. Рассылать СПАМ.</li>
-    <li class="rules__item">2. Выкладывать материалы рекламного характера без согласования с администратором чата.</li>
-    <li class="rules__item">3. Выкладывать ссылки на другие интернет ресурсы, заниматься самопиаром.</li>
-    <li class="rules__item">4. Разжигание конфликтов на политическом, национальном или религиозном фоне.</li>
-    <li class="rules__item">5. Непристойное обращение к пользователям.</li>
-    <li class="rules__item">6. Мошенничество.</li>
-    <li class="rules__item">7. Общение между мужчинами в плане гомосексуального характера.</li>
-    <li class="rules__item">8. Выкладывание в чат фото и видео материалы по соблазнению без отчета о соблазнении.</li>
-    <li class="rules__item">9. Выкладывание в чат фото и видео материалов порно и эротического характера.</li>
-  </ul>
-  <h3 class="rules__subtitle">Каждый пользователь имеет право пожаловаться администратору чата на другого пользователя,
-    в случае нарушения одного из правил, в частности, на неуважительное отношение и обращение к другим участникам чата.
-  </h3>
-  <h3 class="rules__subtitle">Администратор чата имеет право:</h3>
-  <ul class="rules__items">
-    <li class="rules__item">1. Требовать полное соблюдение правил чата.</li>
-    <li class="rules__item">2. Напоминать пользователям о правилах и делать предупреждения.</li>
-    <li class="rules__item">3. Удалять сообщения нарушителей без предупреждения.</li>
-    <li class="rules__item">4. Удалять и блокировать нарушителей без предупреждения и без объяснения причин за нарушение правил чата.</li>
-    <li class="rules__item">5. Менять правила чата.</li>
-  </ul>
-  <p class="rules__text">Общение в чате ведется на русском языке посредством текстовых сообщений.</p>
-  <p class="rules__text">За нарушение вышеуказанных пунктов — БАН.</p>
-  <p class="rules__text">Участником группы может стать любой молодой человек, достигший 18 лет.</p>
-  <p class="rules__text">Если вам нет 18 — вы должны покинуть группу.</p>
-  <p class="rules__text">Оставаясь в группе, вы автоматически подтверждаете, что ознакомились с правилами группы и подтвердили свое совершеннолетие.</p>
-  <p class="rules__text">Администрация группы прикладывает все усилия для того, чтобы общение было для участников максимально комфортное. Однако, если вы покинули группу сами — вступление в нее второй раз будет невозможным.</p>
-  <a href="{{ url_for('register') }}" class="rules__button form__wrapper-button">Перейти на страницу регистрации</a>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+  <section class="section__search">
+    <div class="container">
+      <form class="section__search-wrapper">
+        <div class="section__search-form">
+          <input class="section__search-input section__input" type="text" placeholder="Введите данные для поиска" id="section__search-input" name="section__search-input">
+          <button class="section__search-button section__button" type="submit">Найти контакт</button>
+        </div>
+      </form>
+    </div>
+  </section>
+  <div class="wrapper">
+    <section class="section">
+      <div class="container">
+  
+        <div class="section__wrapper">
+          <div class="section__person-list">
+            <a class="section__person-add-button section__button" href="#">Добавить новую запись</a>
+            <h3 class="section__person-title">Список контактов</h3>
+            <p class="section__person-text">Нажмите на контакт, чтобы просмотреть или редактировать данные</p>
+            <ul class="section__person-items">
+              <li  class="section__person-item">
+                <a class="section__person-link" href="#">пупкин вася</a>
+              </li>
+              <li  class="section__person-item">
+                <a class="section__person-link" href="#">пупкин вася</a>
+              </li>
+              <li  class="section__person-item">
+                <a class="section__person-link" href="#">пупкин вася</a>
+              </li>
+              <li  class="section__person-item">
+                <a class="section__person-link" href="#">пупкин вася</a>
+              </li>
+              <li  class="section__person-item">
+                <a class="section__person-link" href="#">пупкин вася</a>
+              </li>
+              <li  class="section__person-item">
+                <a class="section__person-link" href="#">пупкин вася</a>
+              </li>
+              <li  class="section__person-item">
+                <a class="section__person-link" href="#">пупкин вася</a>
+              </li>
+            </ul>
+          </div>
+  
+          <div class="section__person-data">
+            <form class="section__person-form" method="POST">
+  
+              <div class="section__person-form-wrapper">
+                <label class="section__person-form-title" for="city">Номер телефона</label>
+                <input class="section__person-form-input section__input" type="text" placeholder="Номер телефона" id="section__person-form-city" name="phone_number" required>
+              </div>
+    
+              <div class="section__person-form-wrapper">
+                <label class="section__person-form-title" for="firstName">Имя</label>
+                <input class="section__person-form-input section__input" type="text" placeholder="Имя" id="section__person-form-firstName" name="first_name" required>
+              </div>
+        
+              <div class="section__person-form-wrapper">
+                <label class="section__person-form-title" for="lastName">Фамилия</label>
+                <input class="section__person-form-input section__input" type="text" placeholder="Фамилия" id="section__person-form-lastName" name="last_name" required>
+              </div>
+              <button class="section__person-form-button section__button" type="submit">Сохранить изменения</button>
+              <a class="section__person-delete-button section__button" href="#">Удалить запись</a>
+      
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
 
-
-{% endblock %}
+    <footer class="footer">
+      <div class="container">
+        <p class="footer__copyright">Copyright © 2023 Andrei Makarevich. All rights reserved</p>
+      </div>
+    </footer>
+    
+  </div>
+</body>
+</html>

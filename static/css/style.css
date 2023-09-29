@@ -1,0 +1,222 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap");
+
+html{
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+*,
+*::before,
+*::after{
+  box-sizing: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+body{
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  min-width: 320px;
+  overflow-x: hidden;
+  color: #cec7bb;
+}
+
+a{
+  display: block;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+li{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+html,
+body{
+  height: 100%;
+}
+
+.container{
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+.wrapper{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #501514;
+}
+.section{
+  flex-grow: 1;
+}
+
+.section__search{
+  position: fixed;
+  left: 0;
+  right: 0;
+  background-color: #311111;
+  border-bottom: 1px solid #ffffff50;
+  z-index: 10;
+}
+.section__search-form{
+  display: flex;
+  align-items: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.section__wrapper{
+  display: flex;
+  justify-content: space-between;
+  padding-top: 120px;
+  padding-bottom: 30px;
+}
+
+.section__add-wrapper{
+  justify-content: center;
+  padding-top: 20px;
+}
+.section__person-list{
+  width: 30%;
+  border: 1px solid #ffffff50;
+  border-radius: 5px;
+  min-height: calc(100vh - 200px);
+  padding: 30px 20px;
+}
+
+.section__person-data{
+  width: 60%;
+  height: 50%;
+  position: sticky;
+  right: 0;
+  top: 122px;
+  border: 1px solid #ffffff50;
+  border-radius: 5px;
+  padding: 30px 20px;
+}
+
+.section__input{
+  font-size: 18px;
+  border: 1px solid #fff;
+  color: #fff;
+  padding: 10px;
+  border-radius: 3px;
+  width: 40%;
+  outline: 0;
+  background-color: #5d2121;
+}
+
+.section__person-form-wrapper{
+  display: flex;
+  justify-content: flex-start;
+}
+
+.section__person-form-wrapper + .section__person-form-wrapper{
+  margin-top: 20px;
+}
+.section__person-form-title{
+  font-size: 18px;
+  width: 40%;
+}
+
+.section__button{
+  font-size: 16px;
+  padding: 11px;
+  color: #fff;
+  background-color: #501514;
+  border: 1px solid #fff;
+  border-radius: 3px;
+  transition: all 0.4s ease-in-out;
+  display: inline-block;
+  text-align: center;
+}
+
+.section__button:hover{
+  background-color: #5c1f1e;
+}
+
+.section__search-button{
+  margin-left: 10px;
+}
+
+.section__person-form-button{
+  margin-top: 70px;
+}
+
+.section__person-delete-button{
+  margin-left: 10px;
+}
+
+.footer{
+  background-color: #1a1a09;
+  padding: 15px 0;
+}
+
+.footer__copyright{
+  font-size: 14px;
+  text-align: center;
+}
+
+.section__person-link{
+  font-size: 16px;
+  line-height: 1.4;
+  color: #fff;
+  padding: 10px;
+  background-color: #2c1211;
+  border-radius: 3px;
+  transition: all 0.4s ease-in-out;
+}
+
+.section__person-link:hover{
+  background-color: #3b1715;
+}
+
+.section__person-item + .section__person-item{
+  margin-top: 5px;
+}
+
+.section__person-add-button{
+  display: block;
+  margin-bottom: 10px;
+}
+
+.section__person-title{
+  font-size: 18px;
+  text-align: center;
+}
+
+.section__addperson-title{
+  padding-top: 70px;
+}
+
+.section__person-text{
+  font-size: 14px;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.section__return-button{
+  margin-left: 258px;
+}

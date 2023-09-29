@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+  <div class="wrapper">
+    <section class="section">
+      <div class="container">
+  
+        <h3 class="section__person-title section__addperson-title">Введите данные для добавления нового контакта</h3>
+        <div class="section__wrapper section__add-wrapper">
+          <div class="section__person-data">
+            <form class="section__person-form" method="POST">
+  
+              <div class="section__person-form-wrapper">
+                <label class="section__person-form-title" for="city">Введите номер телефона</label>
+                <input class="section__person-form-input section__input" type="text" placeholder="Введите номер телефона" id="section__person-form-city" name="phone_number" required>
+              </div>
+    
+              <div class="section__person-form-wrapper">
+                <label class="section__person-form-title" for="firstName">Введите имя</label>
+                <input class="section__person-form-input section__input" type="text" placeholder="Введите имя" id="section__person-form-firstName" name="first_name" required>
+              </div>
+        
+              <div class="section__person-form-wrapper">
+                <label class="section__person-form-title" for="lastName">Введите фамилию</label>
+                <input class="section__person-form-input section__input" type="text" placeholder="Введите фамилию" id="section__person-form-lastName" name="last_name" required>
+              </div>
+              <button class="section__person-form-button section__button" type="submit">Сохранить запись</button>
+              
+            </form>
+          </div>
+        </div>
+        <a class="section__button section__return-button" href="#">Вернуться на главную страницу</a>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="footer__copyright">Copyright © 2023 Andrei Makarevich. All rights reserved</p>
+      </div>
+    </footer>
+    
+  </div>
+</body>
+</html>
