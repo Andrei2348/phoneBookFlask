@@ -1,40 +1,91 @@
-// window.addEventListener('DOMContentLoaded', startNavigation)
+window.addEventListener('DOMContentLoaded', startNavigation)
 
 
-// function startNavigation(){
-//   requestToServer()
+function startNavigation(){
+  requestToServer()
 
+}
+
+
+function requestToServer(){
+  $.ajax({
+    url: '/index/',
+    type: 'POST',
+    cache: true,
+    data: { 'data': 'getContacts'},
+    success: function(response) {
+      
+      if (response.length == 0){
+        document.querySelector('.section__person-items').insertAdjacentHTML("beforeend",
+        `<li class="section__person-item">
+          <p class="section__person-text">Список контактов пуст</p>
+        </li>`);
+      } else {
+        // Выводим список контактов
+        document.querySelector('.section__person-items').insertAdjacentHTML("beforeend",
+        `<li class="section__person-item">
+          <p class="section__person-text">Нажмите на контакт, чтобы просмотреть или редактировать данные</p>
+        </li>`);
+        
+        for (elem in response){
+          document.querySelector('.section__person-items').insertAdjacentHTML("beforeend",
+          `<li class="section__person-item" data-attribute=${response[elem]['id']} >
+            <a class="section__person-link" href="#">${response[elem]['firstname']} ${response[elem]['lastname']}</a>
+          </li>`);
+        };
+        selectPersonFromList();
+      }
+    },
+    error: function(error) {
+      console.log(error);
+    }
+  });
+}
+
+
+function selectPersonFromList(){
+  const clients = document.querySelectorAll('.section__person-item')
+  clients.forEach((eachElement, index) => 
+    eachElement.addEventListener('click', function(event){
+      event.preventDefault();
+      let clientAttribute = clients[index].getAttribute('data-attribute');
+      console.log(clientAttribute)
+      
+      $.ajax({
+        url: '/index/',
+        type: 'POST',
+        cache: true,
+        data: { 'data': 'getInfo',
+              'client_id': clientAttribute},
+        success: function(response) {
+          console.log(response)
+        },
+        error: function(error) {
+          console.log(error);
+        }
+      });
+
+    })
+  );
+};
+
+
+
+// =======================================================================
+// const el = document.querySelector('.section__person-items')
+// console.log(el);
+// const elems = el.childNodes
+// console.log(elems.length);
+// console.log(el.childNodes)
+// if(document.querySelector('.section__person-items').childNodes.length > 2) {
+//   console.log('yes')
+// } else {
+//   console.log('no')
 // }
 
 
 
-$.ajax({
-  url: '/index/',
-  type: 'POST',
-  cache: true,
-  data: { 'data': 'getContacts'},
-  success: function(response) {
-    console.log(response[0]['firstname'])
-    console.log(response.length)
 
-    if (response.length == 0){
-      document.querySelector('.section__person-items').insertAdjacentHTML("beforeend",
-      `<p class="user__empty-style">Список контактов пуст</p>`);
-    } else {
-      // Выводим список друзей
-      for (index in (0, response.length)){
-        document.querySelector('.section__person-items').insertAdjacentHTML("beforeend",
-        `<li class="section__person-item">
-          <a class="section__person-link" href="#">${response[index]['firstname']}</a>
-        </li>`);
-      };
-    }
-
-  },
-  error: function(error) {
-    console.log(error);
-  }
-});
 
 // Функция обращения на сервер без return
 // function requestToServer(){

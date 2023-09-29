@@ -29,10 +29,20 @@ def close_database(cursor, db):
 def index():
   if request.method == 'POST':
     data = request.form.get('data')
+    client_id = request.form.get('id')
     if data == 'getContacts':
       contact_list = get_contact_list()
       return jsonify(contact_list)
+    
+    
+    if data == 'getInfo':
+      contact_info == getContactInfo(client_id)
+    
+  
+  
   return render_template('index.html', my_title = 'Телефонный справочник')
+
+
 
 
 
