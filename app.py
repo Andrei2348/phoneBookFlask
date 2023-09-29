@@ -1,5 +1,4 @@
-from flask import Flask, render_template, flash, session, request, redirect, url_for, jsonify
-from werkzeug.security import generate_password_hash, check_password_hash
+from flask import Flask, render_template, flash, request, redirect, url_for, jsonify
 import os
 import sqlite3
 
@@ -25,9 +24,14 @@ def close_database(cursor, db):
 
 
 # Главная страница проекта
-@app.route('/index/')
-@app.route('/')
+@app.route('/index/', methods = ['GET', 'POST'])
+# @app.route('/')
 def index():
+  if request.method == 'POST':
+    data = request.form.get('data')
+    if data == 'getContacts':
+      contact_list = get_contact_list()
+      return jsonify(contact_list)
   return render_template('index.html', my_title = 'Телефонный справочник')
 
 

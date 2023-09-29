@@ -10,7 +10,7 @@
   
   <section class="section__search">
     <div class="container">
-      <form class="section__search-wrapper" action="/index/">
+      <form class="section__search-wrapper">
         <div class="section__search-form">
           <input class="section__search-input section__input" type="text" placeholder="Введите данные для поиска" id="section__search-input" name="section__search-input">
           <button class="section__search-button section__button" type="submit">Найти контакт</button>
@@ -53,7 +53,7 @@
           </div>
   
           <div class="section__person-data">
-            <form class="section__person-form" method="POST" action="/index/">
+            <form class="section__person-form" method="POST">
   
               <div class="section__person-form-wrapper">
                 <label class="section__person-form-title" for="city">Номер телефона</label>
@@ -85,5 +85,7 @@
     </footer>
     
   </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="{{ url_for('static', filename='./js/main.js') }}"></script>
 </body>
 </html>
