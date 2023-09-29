@@ -56,7 +56,7 @@ function selectPersonFromList(response){
       phoneNumber.value = response[index - 1]['phone_number'];
       firstName.value = response[index - 1]['firstname'];
       lastName.value = response[index - 1]['lastname'];
-      saveChanges(clientAttribute);
+      saveChanges();
     })
   );
   // deleteClient();
