@@ -4,13 +4,14 @@ import app
 def get_contact_list():
   try:
     cursor, db = app.connect_database()
-    cursor.execute('''SELECT id, firstname, lastname FROM phone_directory''')
+    cursor.execute('''SELECT * FROM phone_directory''')
     contacts = cursor.fetchall()
     app.close_database(cursor, db)
     if contacts:
       contact_list = []
       for contact in contacts:
         contact_list.append({'id': contact['id'],
+                            'phone_number': contact['phone_number'],
                             'firstname': contact['firstname'],
                             'lastname': contact['lastname'],
                             })
@@ -23,25 +24,7 @@ def get_contact_list():
     
     
     
-    def getContactInfo(client_id):
-  try:
-    cursor, db = app.connect_database()
-    cursor.execute('''SELECT id, firstname, lastname FROM phone_directory''')
-    contacts = cursor.fetchall()
-    app.close_database(cursor, db)
-    if contacts:
-      contact_list = []
-      for contact in contacts:
-        contact_list.append({'id': contact['id'],
-                            'firstname': contact['firstname'],
-                            'lastname': contact['lastname'],
-                            })
-      return contact_list
-    else:
-      print('Список контактов пуст.')
-      return []
-  except:
-    print('Ошибка при обращении к бд при запросе списка контактов.')
+  
 
 # # Поиск пользователей(OK)
 # def found_friends(friend):

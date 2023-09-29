@@ -35,8 +35,8 @@ def index():
       return jsonify(contact_list)
     
     
-    if data == 'getInfo':
-      contact_info == getContactInfo(client_id)
+    # if data == 'getInfo':
+    #   contact_info == getContactInfo(client_id)
     
   
   
