@@ -2,6 +2,8 @@ const phoneNumber = document.getElementById('section__person-form-phone');
 const firstName = document.getElementById('section__person-form-firstName');
 const lastName = document.getElementById('section__person-form-lastName');
 const saveButton = document.querySelector('.section__person-form-button');
+const deleteButton = document.querySelector('.section__person-delete-button');
+const id = document.getElementById('hidden__id');
 
 window.addEventListener('DOMContentLoaded', startNavigation)
 
@@ -12,7 +14,7 @@ function startNavigation(){
 
 function requestToServer(){
   $.ajax({
-    url: '/index/',
+    url: '/',
     type: 'POST',
     cache: true,
     data: { 'data': 'getContacts'},
@@ -45,31 +47,81 @@ function requestToServer(){
   });
 }
 
-
 function selectPersonFromList(response){
+
+  
+  
+
   const clients = document.querySelectorAll('.section__person-item')
+  console.log(clients)
   clients.forEach((eachElement, index) => 
     eachElement.addEventListener('click', function(event){
       event.preventDefault();
-      // Добавить номер записи в таблицу личных данных!!!!
-      <span class="hidden__id">${response[elem]['id']}</span>
+      
       phoneNumber.value = response[index - 1]['phone_number'];
       firstName.value = response[index - 1]['firstname'];
       lastName.value = response[index - 1]['lastname'];
-      saveChanges();
+      id.innerHTML = response[index - 1]['id'];
+      
     })
   );
-  // deleteClient();
+  saveChanges()
+  deleteClient();
 };
 
-function saveChanges(clientAttribute){
+function saveChanges(){
   saveButton.addEventListener('click', function(event){
     event.preventDefault();
     
-    console.log(clientAttribute[-1])
+    $.ajax({
+      url: '/',
+      type: 'POST',
+      cache: true,
+      data: { 'data': 'saveData',
+              'id': id.innerHTML,
+              'phone_number': phoneNumber.value,
+              'firstname': firstName.value,
+              'lastname': lastName.value
+            },
+      success: function(response) {
+        console.log(response)
+      },
+      error: function(error) {
+        console.log(error);
+      }
+    });
   })
-  
 }
+
+function deleteClient(){
+  deleteButton.addEventListener('click', function(event){
+    event.preventDefault();
+    $.ajax({
+      url: '/',
+      type: 'POST',
+      cache: true,
+      data: { 'data': 'deleteData',
+              'id': id.innerHTML
+            },
+      success: function(response) {
+        console.log(response)
+      },
+      error: function(error) {
+        console.log(error);
+      }
+    });
+  })
+}
+
+
+// function saveChanges(clientAttribute){
+//   saveButton.addEventListener('click', function(event){
+//     event.preventDefault();
+    
+//     console.log(clientAttribute[-1])
+//   })
+  
+// }
 
 // =======================================================================
 // const el = document.querySelector('.section__person-items')

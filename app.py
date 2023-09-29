@@ -1,7 +1,6 @@
 from flask import Flask, render_template, flash, request, redirect, url_for, jsonify
 import os
 import sqlite3
-
 from user_functions import *
 from create_table import create_table
 
@@ -24,21 +23,29 @@ def close_database(cursor, db):
 
 
 # Главная страница проекта
-@app.route('/index/', methods = ['GET', 'POST'])
-# @app.route('/')
+@app.route('/', methods = ['GET', 'POST'])
 def index():
   if request.method == 'POST':
+    
     data = request.form.get('data')
-    client_id = request.form.get('id')
+    values = [
+              request.form.get('phone_number'),
+              request.form.get('firstname'),
+              request.form.get('lastname'),
+              request.form.get('id')
+    ]
+    
     if data == 'getContacts':
       contact_list = get_contact_list()
       return jsonify(contact_list)
     
     
-    # if data == 'getInfo':
-    #   contact_info == getContactInfo(client_id)
-    
-  
+    if data == 'saveData':
+      saveData(values)
+      
+    if data == 'deleteData':
+      deleteData(values[3])
+      
   
   return render_template('index.html', my_title = 'Телефонный справочник')
 
