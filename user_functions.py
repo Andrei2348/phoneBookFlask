@@ -15,7 +15,7 @@ def get_contact_list():
                             'firstname': contact['firstname'],
                             'lastname': contact['lastname'],
                             })
-      print(f'Список контактов {contact_list}')
+      print(f'Список контактов: {contact_list}.')
       return contact_list
     else:
       print('Список контактов пуст.')
@@ -24,7 +24,7 @@ def get_contact_list():
     print('Ошибка при обращении к бд при запросе списка контактов.')
     
     
-    
+# Функция обновления контакта
 def saveData(values):
   try:
     cursor, db = app.connect_database()
@@ -35,16 +35,21 @@ def saveData(values):
                       WHERE id = ?''', values)
     db.commit()
     app.close_database(cursor, db)
+    print('Обновление контакта прошло успешно.')
+    return True
   except:
     print('Ошибка при обращении к бд при запросе редактирования контакта.')
+    return False
   
-
+  
+# Функция удаления контакта
 def deleteData(user_id):
   try:
     cursor, db = app.connect_database()
     cursor.execute('''DELETE FROM phone_directory WHERE id = ?''', (user_id,))
     db.commit()
     app.close_database(cursor, db)
+    print('Удаление контакта прошло успешно.')
     return True
   except:
     print('Ошибка при обращении к бд при запросе удаления контакта.')

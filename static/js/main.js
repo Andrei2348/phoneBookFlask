@@ -4,6 +4,7 @@ const lastName = document.getElementById('section__person-form-lastName');
 const saveButton = document.querySelector('.section__person-form-button');
 const deleteButton = document.querySelector('.section__person-delete-button');
 const id = document.getElementById('hidden__id');
+const personData = document.querySelector('.section__person-data');
 
 window.addEventListener('DOMContentLoaded', startNavigation)
 
@@ -11,7 +12,7 @@ function startNavigation(){
   requestToServer()
 }
 
-
+// Запрос на сервер данных о контактах
 function requestToServer(){
   $.ajax({
     url: '/',
@@ -47,32 +48,27 @@ function requestToServer(){
   });
 }
 
+// Функция вывода данных о выбранном контакте
 function selectPersonFromList(response){
-
-  
-  
-
   const clients = document.querySelectorAll('.section__person-item')
   console.log(clients)
   clients.forEach((eachElement, index) => 
     eachElement.addEventListener('click', function(event){
       event.preventDefault();
-      
+      personData.classList.add('visible');
       phoneNumber.value = response[index - 1]['phone_number'];
       firstName.value = response[index - 1]['firstname'];
       lastName.value = response[index - 1]['lastname'];
       id.innerHTML = response[index - 1]['id'];
-      
     })
   );
   saveChanges()
   deleteClient();
 };
 
+// Функция запроса на сохранение изменений контакта
 function saveChanges(){
-  saveButton.addEventListener('click', function(event){
-    event.preventDefault();
-    
+  saveButton.addEventListener('click', function(){
     $.ajax({
       url: '/',
       type: 'POST',
@@ -84,7 +80,7 @@ function saveChanges(){
               'lastname': lastName.value
             },
       success: function(response) {
-        console.log(response)
+        console.log(response);
       },
       error: function(error) {
         console.log(error);
@@ -93,9 +89,9 @@ function saveChanges(){
   })
 }
 
+// Функция удаления контакта
 function deleteClient(){
-  deleteButton.addEventListener('click', function(event){
-    event.preventDefault();
+  deleteButton.addEventListener('click', function(){
     $.ajax({
       url: '/',
       type: 'POST',
@@ -104,7 +100,7 @@ function deleteClient(){
               'id': id.innerHTML
             },
       success: function(response) {
-        console.log(response)
+        console.log(response);
       },
       error: function(error) {
         console.log(error);
