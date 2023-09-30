@@ -1,6 +1,6 @@
 import app
 
-
+# Функция запроса списка контактов
 def get_contact_list():
   try:
     cursor, db = app.connect_database()
@@ -15,6 +15,7 @@ def get_contact_list():
                             'firstname': contact['firstname'],
                             'lastname': contact['lastname'],
                             })
+      print(f'Список контактов {contact_list}')
       return contact_list
     else:
       print('Список контактов пуст.')
@@ -25,21 +26,29 @@ def get_contact_list():
     
     
 def saveData(values):
-  cursor, db = app.connect_database()
-  cursor.execute('''UPDATE phone_directory
-                    SET phone_number = ?, 
-                    firstname = ?,
-                    lastname = ?
-                    WHERE id = ?''', values)
-  db.commit()
-  app.close_database(cursor, db)
+  try:
+    cursor, db = app.connect_database()
+    cursor.execute('''UPDATE phone_directory
+                      SET phone_number = ?, 
+                      firstname = ?,
+                      lastname = ?
+                      WHERE id = ?''', values)
+    db.commit()
+    app.close_database(cursor, db)
+  except:
+    print('Ошибка при обращении к бд при запросе редактирования контакта.')
   
-  
+
 def deleteData(user_id):
-  cursor, db = app.connect_database()
-  cursor.execute('''DELETE FROM phone_directory WHERE id = ?''', (user_id,))
-  db.commit()
-  app.close_database(cursor, db)
+  try:
+    cursor, db = app.connect_database()
+    cursor.execute('''DELETE FROM phone_directory WHERE id = ?''', (user_id,))
+    db.commit()
+    app.close_database(cursor, db)
+    return True
+  except:
+    print('Ошибка при обращении к бд при запросе удаления контакта.')
+    return False
 
 # # Поиск пользователей(OK)
 # def found_friends(friend):
