@@ -14,7 +14,7 @@ function startNavigation(){
   requestToServer()
 }
 
-// Функция очистки сообщений
+// Функция очистки списка
 function cleanPersonList(style){
   if(document.querySelectorAll(style)){
     document.querySelectorAll(style).forEach((eachElement) => eachElement.remove());
@@ -37,7 +37,6 @@ function requestToServer(){
     cache: true,
     data: { 'data': 'getContacts'},
     success: function(response) {
-      
       if (response.length == 0){
         document.querySelector('.section__person-items').insertAdjacentHTML("beforeend",
         `<li class="section__person-item">
@@ -137,9 +136,7 @@ deleteButton.addEventListener('click', function(event){
 document.querySelector('.section__search-wrapper').addEventListener('submit', function(event){
   event.preventDefault()
   const searchData = searchInput.value
-  console.log(searchData)
   if(searchData.length > 0){
-    console.log('req')
     $.ajax({
       url: '/',
       type: 'POST',
@@ -148,28 +145,25 @@ document.querySelector('.section__search-wrapper').addEventListener('submit', fu
               'search_data': searchData
             },
       success: function(response) {
-        if(response){
-          refreshPersonList();
-
-          if (response.length == 0){
+        refreshPersonList()
+        if (response.length == 0){
+          document.querySelector('.section__person-items').insertAdjacentHTML("beforeend",
+          `<li class="section__person-item">
+            <p class="section__person-text">Контакты не найдены</p>
+          </li>`);
+        } else {
+          // Выводим результаты поиска
+          document.querySelector('.section__person-items').insertAdjacentHTML("beforeend",
+          `<li class="section__person-item">
+            <p class="section__person-text">Результаты поиска:</p>
+          </li>`);
+          
+          for (elem in response){
             document.querySelector('.section__person-items').insertAdjacentHTML("beforeend",
             `<li class="section__person-item">
-              <p class="section__person-text">Контакты не найдены.</p>
+              <a class="section__person-link" href="#">${response[elem]['firstname']} ${response[elem]['lastname']}</a>
             </li>`);
-          } else {
-            // Выводим список поиска контактов
-            document.querySelector('.section__person-items').insertAdjacentHTML("beforeend",
-            `<li class="section__person-item">
-              <p class="section__person-text">Результаты поиска:</p>
-            </li>`);
-
-            for (elem in response){
-              document.querySelector('.section__person-items').insertAdjacentHTML("beforeend",
-              `<li class="section__person-item">
-                <a class="section__person-link" href="#">${response[elem]['firstname']} ${response[elem]['lastname']}</a>
-              </li>`);
-            };
-          }
+          };
         }
       },
       error: function(error) {

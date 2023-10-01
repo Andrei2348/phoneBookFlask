@@ -46,8 +46,7 @@ def index():
       return jsonify(deleteData(values[3]))
     
     if data == 'searchData':
-      searchData(search_data)
-      # return jsonify(searchData(search_data))
+      return jsonify(searchData(search_data))
       
   return render_template('index.html', my_title = 'Телефонный справочник')
 

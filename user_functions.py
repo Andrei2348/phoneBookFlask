@@ -1,5 +1,9 @@
 import app
 
+
+
+  
+
 # Функция запроса списка контактов
 def get_contact_list():
   try:
@@ -15,7 +19,7 @@ def get_contact_list():
                             'firstname': contact['firstname'],
                             'lastname': contact['lastname'],
                             })
-      print(f'Список контактов: {contact_list}.')
+      # print(f'Список контактов: {contact_list}.')
       return contact_list
     else:
       print('Список контактов пуст.')
@@ -58,20 +62,40 @@ def deleteData(user_id):
 
 # # Поиск пользователей(OK)
 def searchData(search_data):
+  contact_list = []
+  params = ['firstname', 'lastname']
   try:
     cursor, db = app.connect_database()
-    cursor.execute("SELECT * FROM phone_directory WHERE firstname = ?", [search_data])
-    contact = cursor.fetchall()
+    for param in params:
+      cursor.execute(f'SELECT * FROM phone_directory WHERE {param} = ?', [search_data])
+      contacts = cursor.fetchall()
+      if len(contacts) > 0:
+        for contact in contacts:
+          contact_list.append({'id': contact['id'],
+                              'phone_number': contact['phone_number'],
+                              'firstname': contact['firstname'],
+                              'lastname': contact['lastname'],
+                              })
+      print(contact_list)
     app.close_database(cursor, db)
-    for elem in contact:
-      print(elem['firstname'])
-    print(f'Запрос поиска контактов (OK)! {contact}')
-    return contact
+    return contact_list
   except:
     print('Ошибка при обращении к бд при запросе поиска контактов')
     return []
 
 
+# def contactsInitiaze(contacts, contact_list):
+#   if contacts:
+#     for contact in contacts:
+#       contact_list.append({'id': contact['id'],
+#                           'phone_number': contact['phone_number'],
+#                           'firstname': contact['firstname'],
+#                           'lastname': contact['lastname'],
+#                           })
+    
+#     return contact_list
+#   else:
+#     return []
 
 
 
