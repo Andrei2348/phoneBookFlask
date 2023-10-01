@@ -28,6 +28,7 @@ def index():
   if request.method == 'POST':
     
     data = request.form.get('data')
+    search_data = request.form.get('search_data')
     values = [
               request.form.get('phone_number'),
               request.form.get('firstname'),
@@ -43,6 +44,10 @@ def index():
       
     if data == 'deleteData':
       return jsonify(deleteData(values[3]))
+    
+    if data == 'searchData':
+      searchData(search_data)
+      # return jsonify(searchData(search_data))
       
   return render_template('index.html', my_title = 'Телефонный справочник')
 
@@ -74,11 +79,10 @@ def add_contact():
   return render_template('add_contact.html', my_title = 'Добавление контакта')
 
 
-
 # Ошибка 404
-# @app.errorhandler(404)
-# def page_not_found(error):
-#   return render_template('404.html', my_title = 'Error')
+@app.errorhandler(404)
+def page_not_found(error):
+  return render_template('404.html', my_title = 'Error')
 
 
 if __name__ == '__main__':

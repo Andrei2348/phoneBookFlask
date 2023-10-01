@@ -234,3 +234,19 @@ body{
 .section__return-button{
   margin-left: 258px;
 }
+
+.content__inner{
+  margin-top: 120px;
+  text-align: center;
+}
+
+.content__title{
+  font-size: 70px;
+  line-height: 1.4;
+  margin-bottom: 15px;
+}
+
+.content__text{
+  font-size: 40px;
+  line-height: 1.4;
+}

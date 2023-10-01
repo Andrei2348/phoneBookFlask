@@ -55,18 +55,21 @@ def deleteData(user_id):
     print('Ошибка при обращении к бд при запросе удаления контакта.')
     return False
 
+
 # # Поиск пользователей(OK)
-# def found_friends(friend):
-#   try:
-#     cursor, db = app.connect_database()
-#     cursor.execute("SELECT username FROM users WHERE username = ?", [friend])
-#     friend = cursor.fetchone()
-#     app.close_database(cursor, db)
-#     print(f'Запрос поиска людей (OK)! {friend}')
-#     return friend
-#   except:
-#     print('Ошибка при обращении к бд при запросе поиска людей')
-#     return []
+def searchData(search_data):
+  try:
+    cursor, db = app.connect_database()
+    cursor.execute("SELECT * FROM phone_directory WHERE firstname = ?", [search_data])
+    contact = cursor.fetchall()
+    app.close_database(cursor, db)
+    for elem in contact:
+      print(elem['firstname'])
+    print(f'Запрос поиска контактов (OK)! {contact}')
+    return contact
+  except:
+    print('Ошибка при обращении к бд при запросе поиска контактов')
+    return []
 
 
 

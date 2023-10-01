@@ -1,63 +1,62 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% block search %}
 <section class="section__search">
   <div class="container">
-    <form class="section__search-wrapper">
+    <form class="section__search-wrapper" method="POST">
       <div class="section__search-form">
         <input class="section__search-input section__input" type="text" placeholder="Введите данные для поиска" id="section__search-input" name="section__search-input">
-        <button class="section__search-button section__button" type="submit">Найти контакт</button>
+        <button class="section__search-button section__button" id="section__search-button" type="submit">Найти контакт</button>
       </div>
     </form>
   </div>
 </section>
+{% endblock %}
 
-<div class="wrapper">
-  <section class="section">
-    <div class="container">
+{% block content %}
+<section class="section">
+  <div class="container">
 
-      <div class="section__wrapper">
-        <div class="section__person-list">
-          <a class="section__person-add-button section__button" href="{{ url_for('add_contact') }}">Добавить новую запись</a>
-          <h3 class="section__person-title">Список контактов</h3>
-          <ul class="section__person-items">
-            
-          </ul>
-        </div>
+    <div class="section__wrapper">
+      <div class="section__person-list">
+        <a class="section__person-add-button section__button" href="{{ url_for('add_contact') }}">Добавить новую запись</a>
+        <h3 class="section__person-title">Список контактов</h3>
+        <ul class="section__person-items">
+          
+        </ul>
+      </div>
 
-        <div class="section__person-data">
-          <form class="section__person-form" method="POST">
-            <span id="hidden__id"></span>
-            <div class="section__person-form-wrapper">
-              <label class="section__person-form-title" for="city">Номер телефона</label>
-              <input class="section__person-form-input section__input" type="text" placeholder="Номер телефона" id="section__person-form-phone" name="phone_number" required>
-            </div>
-  
-            <div class="section__person-form-wrapper">
-              <label class="section__person-form-title" for="firstName">Имя</label>
-              <input class="section__person-form-input section__input" type="text" placeholder="Имя" id="section__person-form-firstName" name="first_name" required>
-            </div>
-      
-            <div class="section__person-form-wrapper">
-              <label class="section__person-form-title" for="lastName">Фамилия</label>
-              <input class="section__person-form-input section__input" type="text" placeholder="Фамилия" id="section__person-form-lastName" name="last_name" required>
-            </div>
-            <a class="section__person-form-button section__button" href="{{ url_for('index') }}">Сохранить изменения</a>
-            <a class="section__person-delete-button section__button" href="{{ url_for('index') }}">Удалить запись</a>
+      <div class="section__person-data">
+        <form class="section__person-form" method="POST">
+          <span id="hidden__id"></span>
+          <div class="section__person-form-wrapper">
+            <label class="section__person-form-title" for="city">Номер телефона</label>
+            <input class="section__person-form-input section__input" type="text" placeholder="Номер телефона" id="section__person-form-phone" name="phone_number" required>
+          </div>
+
+          <div class="section__person-form-wrapper">
+            <label class="section__person-form-title" for="firstName">Имя</label>
+            <input class="section__person-form-input section__input" type="text" placeholder="Имя" id="section__person-form-firstName" name="first_name" required>
+          </div>
     
-          </form>
-        </div>
+          <div class="section__person-form-wrapper">
+            <label class="section__person-form-title" for="lastName">Фамилия</label>
+            <input class="section__person-form-input section__input" type="text" placeholder="Фамилия" id="section__person-form-lastName" name="last_name" required>
+          </div>
+          <a class="section__person-form-button section__button" href="{{ url_for('index') }}">Сохранить изменения</a>
+          <a class="section__person-delete-button section__button" href="{{ url_for('index') }}">Удалить запись</a>
+  
+        </form>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <footer class="footer">
-    <div class="container">
-      <p class="footer__copyright">Copyright © 2023 Andrei Makarevich. All rights reserved</p>
-    </div>
-  </footer>
-  
-</div>
+<footer class="footer">
+  <div class="container">
+    <p class="footer__copyright">Copyright © 2023 Andrei Makarevich. All rights reserved</p>
+  </div>
+</footer>
 {% endblock %}
 
 {% block script %}
