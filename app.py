@@ -26,7 +26,6 @@ def close_database(cursor, db):
 @app.route('/', methods = ['GET', 'POST'])
 def index():
   if request.method == 'POST':
-    
     data = request.form.get('data')
     search_data = request.form.get('search_data')
     values = [

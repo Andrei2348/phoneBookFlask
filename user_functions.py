@@ -57,6 +57,7 @@ def searchData(search_data):
   contact_list = []
   params = ['firstname', 'lastname', 'phone_number']
   try:
+    
     cursor, db = app.connect_database()
     for each_word in search_data:
       for param in params:
