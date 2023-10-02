@@ -80,7 +80,9 @@ body{
   background-color: #311111;
   border-bottom: 1px solid #ffffff50;
   z-index: 10;
+  min-height: 155px;
 }
+
 .section__search-form{
   display: flex;
   align-items: center;
@@ -91,7 +93,7 @@ body{
 .section__wrapper{
   display: flex;
   justify-content: space-between;
-  padding-top: 120px;
+  margin-top: 180px;
   padding-bottom: 30px;
 }
 
@@ -113,7 +115,7 @@ body{
   height: 50%;
   position: sticky;
   right: 0;
-  top: 122px;
+  top: 182px;
   border: 1px solid #ffffff50;
   border-radius: 5px;
   padding: 30px 20px;
@@ -263,4 +265,23 @@ body{
   opacity: 1;
   visibility: visible;
   display: block;
+}
+
+.section__radio-title{
+  font-size: 18px;
+}
+
+.section__radio-wrapper{
+  margin-top: 10px;
+  margin-bottom: 20px;
+  display: flex;
+}
+
+.section__radio-item + .section__radio-item{
+  margin-left: 35px;
+}
+
+.section__radio-label{
+  margin-left: 5px;
+  font-size: 16px;
 }
