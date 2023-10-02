@@ -51,21 +51,31 @@ def deleteData(user_id):
     return False
 
 
-# # Поиск пользователей(OK)
+# Поиск контактов
 def searchData(search_data):
   search_data = search_data.split(' ')
-  contact_list = []
+  contact_list = set()
   params = ['firstname', 'lastname', 'phone_number']
   try:
     cursor, db = app.connect_database()
     for each_word in search_data:
       for param in params:
-        cursor.execute(f'SELECT * FROM phone_directory WHERE {param} = ?', [each_word])
+        cursor.execute(f'SELECT id FROM phone_directory WHERE {param} = ?', [each_word])
         contacts = cursor.fetchall()
-        contact_list = contactsInitiaze(contacts, contact_list)
+        for contact in contacts:
+          contact_list.add(contact[0])
+    # print(contact_list)
+    contacts_info_list = []
+    for index in contact_list:
+      print(index)
+      cursor.execute(f'SELECT * FROM phone_directory WHERE id = ?', [index])
+      contacts_info = cursor.fetchall()
+      print(contacts_info)
+      contacts_info_list.append(contacts_info)
+      contact_list = contactsInitiaze(contacts_info_list, contact_list)
     app.close_database(cursor, db)
     print(f'Результаты поиска: {contact_list}')
-    return contact_list
+    # return contact_list
   except:
     print('Ошибка при обращении к бд при запросе поиска контактов')
     return []
