@@ -1,29 +1,20 @@
 import app
 
 
-
-  
-
 # Функция запроса списка контактов
 def get_contact_list():
+  contact_list = []
   try:
     cursor, db = app.connect_database()
     cursor.execute('''SELECT * FROM phone_directory''')
     contacts = cursor.fetchall()
     app.close_database(cursor, db)
-    if contacts:
-      contact_list = []
-      for contact in contacts:
-        contact_list.append({'id': contact['id'],
-                            'phone_number': contact['phone_number'],
-                            'firstname': contact['firstname'],
-                            'lastname': contact['lastname'],
-                            })
-      # print(f'Список контактов: {contact_list}.')
-      return contact_list
+    if len(contacts) > 0:
+      contact_list = contactsInitiaze(contacts, contact_list)
     else:
-      print('Список контактов пуст.')
-      return []
+      contact_list = []
+      print(f'Список контактов: {contact_list}.')
+    return contact_list
   except:
     print('Ошибка при обращении к бд при запросе списка контактов.')
     
@@ -62,6 +53,7 @@ def deleteData(user_id):
 
 # # Поиск пользователей(OK)
 def searchData(search_data):
+  print(search_data)
   contact_list = []
   params = ['firstname', 'lastname']
   try:
@@ -69,33 +61,25 @@ def searchData(search_data):
     for param in params:
       cursor.execute(f'SELECT * FROM phone_directory WHERE {param} = ?', [search_data])
       contacts = cursor.fetchall()
-      if len(contacts) > 0:
-        for contact in contacts:
-          contact_list.append({'id': contact['id'],
-                              'phone_number': contact['phone_number'],
-                              'firstname': contact['firstname'],
-                              'lastname': contact['lastname'],
-                              })
-      print(contact_list)
+      print(contacts)
+      contact_list = contactsInitiaze(contacts, contact_list)
     app.close_database(cursor, db)
+    print(f'Результаты поиска: {contact_list}')
     return contact_list
   except:
     print('Ошибка при обращении к бд при запросе поиска контактов')
     return []
 
 
-# def contactsInitiaze(contacts, contact_list):
-#   if contacts:
-#     for contact in contacts:
-#       contact_list.append({'id': contact['id'],
-#                           'phone_number': contact['phone_number'],
-#                           'firstname': contact['firstname'],
-#                           'lastname': contact['lastname'],
-#                           })
-    
-#     return contact_list
-#   else:
-#     return []
+def contactsInitiaze(contacts, contact_list):
+  for contact in contacts:
+    contact_list.append({'id': contact['id'],
+                        'phone_number': contact['phone_number'],
+                        'firstname': contact['firstname'],
+                        'lastname': contact['lastname'],
+                        })
+  return contact_list
+  
 
 
 
