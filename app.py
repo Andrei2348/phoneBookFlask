@@ -46,7 +46,7 @@ def index():
       return jsonify(deleteData(values[3]))
     
     if data == 'searchData':
-      return jsonify(searchData(search_data))
+      return jsonify(searchData(search_data.strip()))
       
   return render_template('index.html', my_title = 'Телефонный справочник')
 
@@ -60,9 +60,9 @@ def add_contact():
       user_details = request.form
       
       values = [
-        user_details['phone_number'],
-        user_details['first_name'],
-        user_details['last_name']
+        user_details['phone_number'].strip(),
+        user_details['first_name'].strip(),
+        user_details['last_name'].strip()
       ]
       
       cursor.execute("""INSERT INTO phone_directory
