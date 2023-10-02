@@ -15,6 +15,7 @@ function startNavigation(){
   requestToServer()
 }
 
+
 // Функция очистки списка
 function cleanPersonList(style){
   if(document.querySelectorAll(style)){
@@ -30,6 +31,7 @@ function refreshPersonList(){
         personData.classList.remove('visible');
       }
 }
+
 
 // Запрос на сервер данных о контактах
 function requestToServer(){
