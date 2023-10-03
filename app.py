@@ -28,6 +28,7 @@ def index():
   if request.method == 'POST':
     data = request.form.get('data')
     search_data = request.form.get('search_data')
+    search_value = request.form.get('search_value')
     values = [
               request.form.get('phone_number'),
               request.form.get('firstname'),
@@ -45,7 +46,7 @@ def index():
       return jsonify(deleteData(values[3]))
     
     if data == 'searchData':
-      return jsonify(searchData(search_data.strip()))
+      return jsonify(searchData(search_value, search_data.strip()))
       
   return render_template('index.html', my_title = 'Телефонный справочник')
 

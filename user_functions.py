@@ -52,19 +52,16 @@ def deleteData(user_id):
 
 
 # Поиск контактов
-def searchData(search_data):
+def searchData(search_value, search_data):
   search_data = search_data.split(' ')
   contact_list = []
-  params = ['firstname', 'lastname', 'phone_number']
   try:
-    
     cursor, db = app.connect_database()
     for each_word in search_data:
-      for param in params:
-        cursor.execute(f'SELECT * FROM phone_directory WHERE {param} = ?', [each_word])
-        contacts = cursor.fetchall()
-        for contact in contacts:
-          contact_list.append(contact)
+      cursor.execute(f'SELECT * FROM phone_directory WHERE {search_value} = ?', [each_word])
+      contacts = cursor.fetchall()
+      for contact in contacts:
+        contact_list.append(contact)
     app.close_database(cursor, db)
     contact_list = contactsInitiaze(contact_list)
     print(f'Результаты поиска: {contact_list}')

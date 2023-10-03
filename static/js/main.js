@@ -7,14 +7,122 @@ const id = document.getElementById('hidden__id');
 const personData = document.querySelector('.section__person-data');
 const searchInput = document.querySelector('.section__search-input');
 const returnButton = document.querySelector('.section__person-return-button');
+const radios = document.querySelectorAll('input.section__radio-button[type="radio"]');
 
 
 window.addEventListener('DOMContentLoaded', startNavigation)
 
 function startNavigation(){
   requestToServer()
+
+  // Поиск контактов
+  document.querySelector('.section__search-wrapper').addEventListener('submit', function(event){
+    event.preventDefault()
+    let radioValue = checkRadio(radios)
+    console.log(radioValue);
+    if (!returnButton.classList.contains('visible')){
+      returnButton.classList.add('visible');
+    }
+    const searchData = searchInput.value;
+    if(searchData.length > 0){
+      $.ajax({
+        url: '/',
+        type: 'POST',
+        cache: true,
+        data: { 'data': 'searchData',
+                'search_data': searchData,
+                'search_value': radioValue
+              },
+        success: function(response) {
+          refreshPersonList()
+          if (response.length == 0){
+            document.querySelector('.section__person-items').insertAdjacentHTML("beforeend",
+            `<li class="section__person-info">
+              <p class="section__person-text">Контакты не найдены</p>
+            </li>`);
+          } else {
+            // Выводим результаты поиска
+            document.querySelector('.section__person-items').insertAdjacentHTML("beforeend",
+            `<li class="section__person-info">
+              <p class="section__person-text">Результаты поиска:</p>
+            </li>`);
+            
+            for (elem in response){
+              document.querySelector('.section__person-items').insertAdjacentHTML("beforeend",
+              `<li class="section__person-item">
+                <a class="section__person-link" href="#">${response[elem]['firstname']} ${response[elem]['lastname']}</a>
+              </li>`);
+            };
+          }
+          selectPersonFromList(response)
+        },
+        error: function(error) {
+          console.log(error);
+        }
+      });
+    }
+  })
+
+
+  // Функция запроса на сохранение изменений контакта
+  saveButton.addEventListener('click', function(event){
+    event.preventDefault()
+    $.ajax({
+      url: '/',
+      type: 'POST',
+      cache: true,
+      data: { 'data': 'saveData',
+              'id': id.innerHTML,
+              'phone_number': phoneNumber.value,
+              'firstname': firstName.value,
+              'lastname': lastName.value
+            },
+      success: function(response) {
+        if(response){
+          refreshPersonList();
+          requestToServer();
+        }
+        console.log(response);
+      },
+      error: function(error) {
+        console.log(error);
+      }
+    });
+  })
+
+
+  // Функция удаления контакта
+  deleteButton.addEventListener('click', function(event){
+    event.preventDefault()
+    $.ajax({
+      url: '/',
+      type: 'POST',
+      cache: true,
+      data: { 'data': 'deleteData',
+              'id': id.innerHTML
+            },
+      success: function(response) {
+        if(response){
+          refreshPersonList();
+          requestToServer();
+        }
+        console.log(response);
+      },
+      error: function(error) {
+        console.log(error);
+      }
+    });
+  })
 }
 
+// проверка радио buttons
+function checkRadio(radios){
+  for (let radio of radios) {
+    if (radio.checked) {
+      return radio.value
+    }
+  }
+}
 
 // Функция очистки списка
 function cleanPersonList(style){
@@ -23,13 +131,14 @@ function cleanPersonList(style){
   };
 };
 
+
 // Функция обновления списка контактов
 function refreshPersonList(){
   cleanPersonList('.section__person-item');
   cleanPersonList('.section__person-info');
-      if(personData.classList.contains('visible')){
-        personData.classList.remove('visible');
-      }
+  if(personData.classList.contains('visible')){
+    personData.classList.remove('visible');
+  }
 }
 
 
@@ -69,51 +178,6 @@ function requestToServer(){
 }
 
 
-document.querySelector('.section__search-wrapper').addEventListener('submit', function(event){
-  event.preventDefault()
-  if (!returnButton.classList.contains('visible')){
-    returnButton.classList.add('visible');
-  }
-  const searchData = searchInput.value;
-  if(searchData.length > 0){
-    $.ajax({
-      url: '/',
-      type: 'POST',
-      cache: true,
-      data: { 'data': 'searchData',
-              'search_data': searchData
-            },
-      success: function(response) {
-        refreshPersonList()
-        if (response.length == 0){
-          document.querySelector('.section__person-items').insertAdjacentHTML("beforeend",
-          `<li class="section__person-info">
-            <p class="section__person-text">Контакты не найдены</p>
-          </li>`);
-        } else {
-          // Выводим результаты поиска
-          document.querySelector('.section__person-items').insertAdjacentHTML("beforeend",
-          `<li class="section__person-info">
-            <p class="section__person-text">Результаты поиска:</p>
-          </li>`);
-          
-          for (elem in response){
-            document.querySelector('.section__person-items').insertAdjacentHTML("beforeend",
-            `<li class="section__person-item">
-              <a class="section__person-link" href="#">${response[elem]['firstname']} ${response[elem]['lastname']}</a>
-            </li>`);
-          };
-        }
-        selectPersonFromList(response)
-      },
-      error: function(error) {
-        console.log(error);
-      }
-    });
-  }
-})
-
-
 // Функция вывода данных о выбранном контакте
 function selectPersonFromList(response){
   const clients = document.querySelectorAll('.section__person-link')
@@ -129,54 +193,3 @@ function selectPersonFromList(response){
     })
   );
 };
-
-
-// Функция запроса на сохранение изменений контакта
-saveButton.addEventListener('click', function(event){
-  event.preventDefault()
-  $.ajax({
-    url: '/',
-    type: 'POST',
-    cache: true,
-    data: { 'data': 'saveData',
-            'id': id.innerHTML,
-            'phone_number': phoneNumber.value,
-            'firstname': firstName.value,
-            'lastname': lastName.value
-          },
-    success: function(response) {
-      if(response){
-        refreshPersonList();
-        requestToServer();
-      }
-      console.log(response);
-    },
-    error: function(error) {
-      console.log(error);
-    }
-  });
-})
-
-
-// Функция удаления контакта
-deleteButton.addEventListener('click', function(event){
-  event.preventDefault()
-  $.ajax({
-    url: '/',
-    type: 'POST',
-    cache: true,
-    data: { 'data': 'deleteData',
-            'id': id.innerHTML
-          },
-    success: function(response) {
-      if(response){
-        refreshPersonList();
-        requestToServer();
-      }
-      console.log(response);
-    },
-    error: function(error) {
-      console.log(error);
-    }
-  });
-})
